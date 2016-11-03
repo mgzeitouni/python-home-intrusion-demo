@@ -29,7 +29,9 @@ def netatmo_callback():
    # x=2
     #print image_name
     return send_file(filename_or_fp='images/%s' %image_name)
-
+@app.route('/morris')
+def get_morris():
+    return send_file(filename_or_fp='images/morris.jpg')
 @app.route('/')
 def Welcome():
     return app.send_static_file('index.html')
