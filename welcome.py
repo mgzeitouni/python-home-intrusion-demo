@@ -23,10 +23,12 @@ app = Flask(__name__)
 def netatmo_callback():
     face_id = request.args.get('face_id')
     face_key = request.args.get('key')
+   # print "Face Id: %s" %face_id
+   # print "Key: %s" %face_key
     image_name = get_save_face(face_id, face_key)
-    x=2
-    print image_name
-    return send_file(filename_or_fp='images/%s.jpg' %image_name)
+   # x=2
+    #print image_name
+    return send_file(filename_or_fp='images/%s' %image_name)
 
 @app.route('/')
 def Welcome():
