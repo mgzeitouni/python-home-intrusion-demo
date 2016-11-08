@@ -21,7 +21,7 @@ def get_save_face(image_id, key):
     
     image_url = "%s/api/getcamerapicture?image_id=%s&key=%s" % (base_url, image_id, key)
     image_name = "%s.jpg" %calendar.timegm(time.gmtime())
-    
+    unix_time = calendar.timegm(time.gmtime())
     f = open('images/%s'%image_name,'wb')
     
     f.write(urlopen(image_url).read())
