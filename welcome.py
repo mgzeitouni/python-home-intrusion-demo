@@ -15,6 +15,7 @@
 import os
 from flask import Flask, jsonify, send_file, request
 from functions import *
+import swiftclient
 
 app = Flask(__name__)
 
@@ -29,6 +30,33 @@ def netatmo_callback():
    # x=2
     #print image_name
     return send_file(filename_or_fp='images/%s' %image_name)
+
+@app.route('/object_storage', methods=['GET'])
+def object_storage():
+
+    auth_url = "https://identity.open.softlayer.com/v3" #add "/v3" at the ending of URL
+    password = "oW1tCjUd!/Dy7tnR"
+    project_id = "608e9ea7faf2437b9927f3e009864a6b"
+    user_id = "230804c517cb469f9da096a1f0082280"
+    region_name = "dallas"
+
+    conn = swiftclient.Connection(key=password, 
+    authurl=auth_url,  
+    auth_version='3', 
+    os_options={"project_id": project_id, 
+                "user_id": user_id, 
+                "region_name": region_name})
+
+    cont_name = "home_intrusion_face_images"
+    conn.put_container(cont_name)
+
+    file_name = "images/morris.jpg"
+    with open(file_name, 'r') as upload_file:
+        conn.put_object(cont_name, file_name, contents= upload_file.read())
+    
+
+    return 'hello'
+
 @app.route('/morris')
 def get_morris():
     return send_file(filename_or_fp='images/morris.jpg')
