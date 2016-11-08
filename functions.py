@@ -43,7 +43,7 @@ def get_save_face(image_id, key):
                "_rev":rev,
             "_attachments":
               {
-    "doc1":
+    str(unix_time):
     {
       "content_type":"image/jpeg",
       "data": "%s" %str(jpeg_data)
