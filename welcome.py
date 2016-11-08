@@ -30,7 +30,8 @@ def netatmo_callback():
     image_name = get_save_face(face_id, face_key)
    # x=2
     #print image_name
-    return send_file(filename_or_fp='images/%s' %image_name)
+    send_file(filename_or_fp='images/%s' %image_name)
+    return image_name
 
 @app.route('/object_storage', methods=['GET'])
 def object_storage():
