@@ -17,6 +17,7 @@ from flask import Flask, jsonify, send_file, request
 from functions import *
 import swiftclient
 
+
 app = Flask(__name__)
 
 
@@ -39,7 +40,12 @@ def object_storage():
     project_id = "608e9ea7faf2437b9927f3e009864a6b"
     user_id = "230804c517cb469f9da096a1f0082280"
     region_name = "dallas"
+    domain = "4e8c062d77dd4f43b356c360c06a9137"
 
+    auth = v3.Password(auth_url=auth_url, username=admin,
+                     password="oW1tCjUd", project_name="object_storage_04d321a4_d622_4094_a76a_d60ac0f294c0",
+                    user_domain_id="4e8c062d77dd4f43b356c360c06a9137", project_domain_id="608e9ea7faf2437b9927f3e009864a6b")
+    
     conn = swiftclient.Connection(key=password, 
     authurl=auth_url,  
     auth_version='3', 
@@ -53,7 +59,7 @@ def object_storage():
     file_name = "images/morris.jpg"
     with open(file_name, 'r') as upload_file:
         conn.put_object(cont_name, file_name, contents= upload_file.read())
-    
+
 
     return 'hello'
 
