@@ -41,6 +41,7 @@ def get_save_face(image_id, key):
     # Create attachment
     payload = {"_id":str(unix_time),
                "_rev":rev,
+               "netatmo_image_id":image_id,
             "_attachments":
               {
     str(unix_time):
