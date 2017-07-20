@@ -35,13 +35,13 @@ def get_save_face(image_id, key):
     headers = {"Content-Type": "application/json"}
 
     # Create document
-    payload = {"_id":str(unix_time)}
+    payload = {"_id":str(unix_time), "netatmo_image_id":image_id}
     rev = requests.post("%s/face_images" %(cloudant_url),  data=json.dumps(payload), headers=headers).json()["rev"]
 
     # Create attachment
     payload = {"_id":str(unix_time),
                "_rev":rev,
-               "netatmo_image_id":image_id,
+              
             "_attachments":
               {
     str(unix_time):
