@@ -18,12 +18,12 @@ cloudant_url = "https://9a894360-dc51-4785-a399-b2a8719c20bb-bluemix:e180413ec8c
 
 
 def get_save_face(image_id, key):
-    
+
     image_url = "%s/api/getcamerapicture?image_id=%s&key=%s" % (base_url, image_id, key)
     image_name = "%s.jpg" %calendar.timegm(time.gmtime())
     unix_time = calendar.timegm(time.gmtime())
     f = open('images/%s'%image_name,'wb')
-    
+
     f.write(urlopen(image_url).read())
     f.close()
 
@@ -31,7 +31,7 @@ def get_save_face(image_id, key):
     # Read the whole file at once
         jpeg_data = base64.b64encode(binary_file.read())
 
-    
+
     headers = {"Content-Type": "application/json"}
 
     # Create document
@@ -41,7 +41,7 @@ def get_save_face(image_id, key):
     # Create attachment
     payload = {"_id":str(unix_time),
                "_rev":rev,
-              
+
             "_attachments":
               {
     str(unix_time):
@@ -51,8 +51,8 @@ def get_save_face(image_id, key):
     }
     }
               }
-     
+
     url = "%s/face_images/%s" %(cloudant_url,str(unix_time) )
     print url
     print requests.put(url, data=json.dumps(payload), headers=headers).text
-    return image_name
+    return image_name, jpeg_data

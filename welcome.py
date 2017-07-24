@@ -27,11 +27,11 @@ def netatmo_callback():
     face_key = request.args.get('key')
    # print "Face Id: %s" %face_id
    # print "Key: %s" %face_key
-    image_name = get_save_face(face_id, face_key)
+    image_name, img_base_64 = get_save_face(face_id, face_key)
    # x=2
     #print image_name
     send_file(filename_or_fp='images/%s' %image_name)
-    return image_name
+    return jsonify({"image_name":image_name, "img_base_64":img_base_64})
 
 @app.route('/object_storage', methods=['GET'])
 def object_storage():
@@ -46,12 +46,12 @@ def object_storage():
     # # auth = v3.Password(auth_url=auth_url, username=admin,
     # #                  password="oW1tCjUd", project_name="object_storage_04d321a4_d622_4094_a76a_d60ac0f294c0",
     # #                 user_domain_id="4e8c062d77dd4f43b356c360c06a9137", project_domain_id="608e9ea7faf2437b9927f3e009864a6b")
-    
-    # conn = swiftclient.Connection(key=password, 
-    # authurl=auth_url,  
-    # auth_version='3', 
-    # os_options={"project_id": project_id, 
-    #             "user_id": user_id, 
+
+    # conn = swiftclient.Connection(key=password,
+    # authurl=auth_url,
+    # auth_version='3',
+    # os_options={"project_id": project_id,
+    #             "user_id": user_id,
     #             "region_name": region_name})
 
     # cont_name = "home_intrusion_face_images"
